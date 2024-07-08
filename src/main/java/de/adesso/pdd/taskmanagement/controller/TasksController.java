@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path="/api/v1/employees", produces = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(path="/api/v1/tasks", produces = {MediaType.APPLICATION_JSON_VALUE})
 @AllArgsConstructor
 @Validated
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class EmployeesController {
+public class TasksController {
 
     private final IEmployeesService employeesService;
 
