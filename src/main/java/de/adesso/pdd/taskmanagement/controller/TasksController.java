@@ -1,7 +1,8 @@
 package de.adesso.pdd.taskmanagement.controller;
 
-import de.adesso.pdd.taskmanagement.dto.EmployeeDto;
-import de.adesso.pdd.taskmanagement.service.IEmployeesService;
+import de.adesso.pdd.taskmanagement.dto.TaskDto;
+import de.adesso.pdd.taskmanagement.service.ITasksService;
+import de.adesso.pdd.taskmanagement.service.ITasksService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
@@ -19,30 +20,35 @@ import java.util.List;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class TasksController {
 
-    private final IEmployeesService employeesService;
+    private final ITasksService tasksService;
 
     @GetMapping
-    public ResponseEntity<List<EmployeeDto>> getAllEmployees() {
-        return ResponseEntity.ok(employeesService.getAllEmployees());
+    public ResponseEntity<List<TaskDto>> getAllTasks() {
+        return ResponseEntity.ok(tasksService.getAllTasks());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable Long id) {
-        return ResponseEntity.ok(employeesService.getEmployeeById(id));
+    @GetMapping("/{taskId}")
+    public ResponseEntity<TaskDto> getTaskById(@PathVariable Long taskId) {
+        return ResponseEntity.ok(tasksService.getTaskById(taskId));
+    }
+
+    @GetMapping("/employee/{employeeId}")
+    public ResponseEntity<List<TaskDto>> getTasksByEmployeeId(@PathVariable Long employeeId) {
+        return ResponseEntity.ok(tasksService.getTasksByEmployeeId(employeeId));
     }
 
     @PostMapping
-    public ResponseEntity<EmployeeDto> createEmployee(@Valid @RequestBody EmployeeDto employeeDto) {
-        return ResponseEntity.ok(employeesService.addEmployee(employeeDto));
+    public ResponseEntity<TaskDto> createTask(@Valid @RequestBody TaskDto TaskDto) {
+        return ResponseEntity.ok(tasksService.addTask(TaskDto));
     }
 
     @PutMapping
-    public ResponseEntity<Boolean> updateEmployee(@Valid @RequestBody EmployeeDto employeeDto) {
-        return ResponseEntity.ok(employeesService.updateEmployee(employeeDto));
+    public ResponseEntity<Boolean> updateTask(@Valid @RequestBody TaskDto TaskDto) {
+        return ResponseEntity.ok(tasksService.updateTask(TaskDto));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteEmployee(@PathVariable Long id) {
-        return ResponseEntity.ok(employeesService.deleteEmployeeById(id));
+    public ResponseEntity<Boolean> deleteTask(@PathVariable Long id) {
+        return ResponseEntity.ok(tasksService.deleteTaskById(id));
     }
 }

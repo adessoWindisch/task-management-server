@@ -2,7 +2,7 @@ package de.adesso.pdd.taskmanagement.service.impl;
 
 import de.adesso.pdd.taskmanagement.dto.EmployeeDto;
 import de.adesso.pdd.taskmanagement.entity.Employee;
-import de.adesso.pdd.taskmanagement.exception.EmployeeAlreadyExistsException;
+import de.adesso.pdd.taskmanagement.exception.ResourceAlreadyExistsException;
 import de.adesso.pdd.taskmanagement.exception.ResourceNotFoundException;
 import de.adesso.pdd.taskmanagement.mapper.EmployeesMapper;
 import de.adesso.pdd.taskmanagement.repository.EmployeesRepository;
@@ -29,7 +29,7 @@ public class EmployeesService implements IEmployeesService {
         Optional<Employee> optionalEmployee = employeesRepository.findByOrgId(employeeDto.getOrgId());
 
         if(optionalEmployee.isPresent()) {
-            throw new EmployeeAlreadyExistsException("Employee already registered with given org id " + employee.getMobileNumber());
+            throw new ResourceAlreadyExistsException("Employee already registered with given org id " + employee.getMobileNumber());
         }
 
         Employee savedEmployee = employeesRepository.save(employee);

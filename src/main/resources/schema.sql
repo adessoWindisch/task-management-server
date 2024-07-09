@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `employee`
+CREATE TABLE IF NOT EXISTS `employees`
 (
     `employee_id`   int AUTO_INCREMENT PRIMARY KEY,
     `org_id`        varchar(10)  NOT NULL,
@@ -17,9 +17,9 @@ CREATE TABLE IF NOT EXISTS `tasks`
     `task_id`     int AUTO_INCREMENT PRIMARY KEY,
     `employee_id` int          NOT NULL,
     `type`        varchar(20)  NOT NULL,
-    `description` varchar(100) NOT NULL,
     `status`      varchar(20)  NOT NULL,
     `priority`    varchar(20)  NOT NULL,
+    `description` varchar(100) NOT NULL,
     `start_date`  date         NOT NULL,
     `end_date`    date         NOT NULL,
     `created_at`  date         NOT NULL,

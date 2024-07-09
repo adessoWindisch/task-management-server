@@ -11,7 +11,8 @@ import java.time.LocalDateTime;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Tasks extends BaseEntity {
+@Table(name = "tasks")
+public class Task extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "taks_id")
@@ -21,16 +22,19 @@ public class Tasks extends BaseEntity {
     private Long employeeId;
 
     @Column(name = "type")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private TaskType type;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private TaskStatus status;
+
+    @Column(name = "priority")
+    @Enumerated(EnumType.STRING)
+    private TaskPriority priority;
 
     @Column(name = "description")
     private String description;
-
-    @Column(name = "status")
-    private String status;
-
-    @Column(name = "priority")
-    private String priority;
 
     @Column(name = "start_date")
     private LocalDateTime startDate;
