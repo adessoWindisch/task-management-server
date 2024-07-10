@@ -27,7 +27,7 @@ public class TaskDto {
     @NotEmpty(message = "Description can not be a null or empty!")
     private String description;
 
-    private LocalDateTime startDate;
+    private String startDate;
 
-    private LocalDateTime endDate;
+    private String endDate;
 }
