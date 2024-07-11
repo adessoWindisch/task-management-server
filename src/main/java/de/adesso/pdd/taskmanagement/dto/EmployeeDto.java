@@ -3,9 +3,13 @@ package de.adesso.pdd.taskmanagement.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Schema(description = "Employee Data Transfer Object")
 public class EmployeeDto {
     @Schema(description = "Employee ID", example = "1", required = true)
