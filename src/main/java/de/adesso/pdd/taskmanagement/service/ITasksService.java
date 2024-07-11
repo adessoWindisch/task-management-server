@@ -1,6 +1,8 @@
 package de.adesso.pdd.taskmanagement.service;
 
 import de.adesso.pdd.taskmanagement.dto.TaskDto;
+import de.adesso.pdd.taskmanagement.dto.TaskStatusDto;
+import de.adesso.pdd.taskmanagement.entity.TaskStatus;
 
 import java.util.List;
 
@@ -56,4 +58,12 @@ public interface ITasksService {
      * @return The task with the given id as a data transfer object.
      */
     TaskDto getTaskById(long id);
+
+    /**
+     * Updates the status of an existing task.
+     *
+     * @param taskDto The task data transfer object with updated status.
+     * @return true if the task status was successfully updated, false otherwise.
+     */
+    boolean updateTaskStatus(long taskId, TaskStatusDto status);
 }
