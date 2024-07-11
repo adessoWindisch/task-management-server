@@ -1,6 +1,8 @@
 package de.adesso.pdd.taskmanagement.controller;
 
 import de.adesso.pdd.taskmanagement.dto.TaskDto;
+import de.adesso.pdd.taskmanagement.dto.TaskStatusDto;
+import de.adesso.pdd.taskmanagement.entity.TaskStatus;
 import de.adesso.pdd.taskmanagement.service.ITasksService;
 import de.adesso.pdd.taskmanagement.service.ITasksService;
 import jakarta.validation.Valid;
@@ -51,4 +53,11 @@ public class TasksController {
     public ResponseEntity<Boolean> deleteTask(@PathVariable Long id) {
         return ResponseEntity.ok(tasksService.deleteTaskById(id));
     }
+
+    @PatchMapping("/{taskId}")
+    public ResponseEntity<Boolean> updateTaskStatus(@PathVariable Long taskId, @RequestBody TaskStatusDto status) {
+        return ResponseEntity.ok(tasksService.updateTaskStatus(taskId, status));
+    }
+
+
 }

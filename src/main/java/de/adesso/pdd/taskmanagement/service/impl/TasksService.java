@@ -2,8 +2,10 @@ package de.adesso.pdd.taskmanagement.service.impl;
 
 import de.adesso.pdd.taskmanagement.dto.EmployeeDto;
 import de.adesso.pdd.taskmanagement.dto.TaskDto;
+import de.adesso.pdd.taskmanagement.dto.TaskStatusDto;
 import de.adesso.pdd.taskmanagement.entity.Employee;
 import de.adesso.pdd.taskmanagement.entity.Task;
+import de.adesso.pdd.taskmanagement.entity.TaskStatus;
 import de.adesso.pdd.taskmanagement.exception.ResourceAlreadyExistsException;
 import de.adesso.pdd.taskmanagement.exception.ResourceNotFoundException;
 import de.adesso.pdd.taskmanagement.mapper.EmployeesMapper;
@@ -33,7 +35,7 @@ public class TasksService implements ITasksService {
         Task task = TasksMapper.toTask(taskDto);
         Optional<Task> optionalTask = tasksRepository.findByTaskId(taskDto.getTaskId());
 
-        if(optionalTask.isPresent()) {
+        if (optionalTask.isPresent()) {
             throw new ResourceAlreadyExistsException("Task already registered with given task id " + task.getTaskId());
         }
 
@@ -48,7 +50,7 @@ public class TasksService implements ITasksService {
         boolean isUpdated = false;
         Optional<Task> optionalTask = tasksRepository.findByTaskId(taskDto.getTaskId());
 
-        if(optionalTask.isEmpty()) {
+        if (optionalTask.isEmpty()) {
             throw new ResourceNotFoundException(TASK, TASKID, String.valueOf(taskDto.getTaskId()));
         }
 
@@ -92,9 +94,23 @@ public class TasksService implements ITasksService {
     @Override
     public TaskDto getTaskById(long id) {
         Task task = tasksRepository.findByTaskId(id).orElseThrow(
-            () -> new ResourceNotFoundException(TASK, TASKID, String.valueOf(id)));
+                () -> new ResourceNotFoundException(TASK, TASKID, String.valueOf(id)));
 
         TaskDto taskDto = TasksMapper.toTaskDto(task);
         return taskDto;
+    }
+
+
+    @Override
+    public boolean updateTaskStatus(long taskId, TaskStatusDto status) {
+        Optional<Task> taskOptional = tasksRepository.findById(taskId);
+        if (taskOptional.isPresent()) {
+            Task task = taskOptional.get();
+            task.setStatus(status.getStatus());
+            tasksRepository.save(task);
+            return true;
+        } else {
+            throw new ResourceNotFoundException(TASK, TASKID, String.valueOf(taskId));
+        }
     }
 }
