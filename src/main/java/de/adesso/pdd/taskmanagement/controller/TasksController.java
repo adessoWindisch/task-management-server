@@ -72,12 +72,9 @@ public class TasksController {
     public ResponseEntity<Boolean> deleteTask(@PathVariable Long id) {
         return ResponseEntity.ok(tasksService.deleteTaskById(id));
     }
+/*    @PatchMapping("/{taskId}/status")
+    public ResponseEntity<Boolean> updateTaskStatus(@PathVariable Long taskId, @Valid @RequestBody TaskStatusDto taskStatusDto) {
+        return ResponseEntity.ok(tasksService.updateTaskStatus(taskId, taskStatusDto));
+    }*/
 
-    @Operation(summary = "Update task status", description = "Update task status", tags = { "Tasks" }, responses = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Successful operation")
-    })
-    @PatchMapping("/{taskId}")
-    public ResponseEntity<Boolean> updateTaskStatus(@PathVariable Long taskId, @RequestBody TaskStatusDto status) {
-        return ResponseEntity.ok(tasksService.updateTaskStatus(taskId, status));
-    }
 }

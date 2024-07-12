@@ -17,6 +17,10 @@ import de.adesso.pdd.taskmanagement.service.ITasksService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -111,6 +115,43 @@ public class TasksService implements ITasksService {
             return true;
         } else {
             throw new ResourceNotFoundException(TASK, TASKID, String.valueOf(taskId));
+        }
+    }
+
+    public long calculateDaysBetweenDates(String startDate, String endDate) {
+        long daysBetween = 0;
+        try {
+            Optional<LocalDate> startOptional = parseDate(startDate);
+            Optional<LocalDate> endOptional = parseDate(endDate);
+
+            if (startOptional.isPresent() && endOptional.isPresent()) {
+                LocalDate start = startOptional.get();
+                LocalDate end = endOptional.get();
+                daysBetween = calculateDays(start, end);
+            } else {
+                throw new IllegalArgumentException("One of the dates could not be parsed");
+            }
+        } catch (Exception e) {
+            throw new IllegalArgumentException("An error occurred while calculating days between dates: " + e.getMessage(), e);
+        }
+        return daysBetween;
+    }
+
+    protected Optional<LocalDate> parseDate(String date) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+            LocalDate parsedDate = LocalDate.parse(date, formatter);
+            return Optional.of(parsedDate);
+        } catch (DateTimeParseException e) {
+            return Optional.empty();
+        }
+    }
+
+    protected long calculateDays(LocalDate start, LocalDate end) {
+        try {
+            return ChronoUnit.DAYS.between(start, end);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("An error occurred while calculating the difference in days: " + e.getMessage(), e);
         }
     }
 }

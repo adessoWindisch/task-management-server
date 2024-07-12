@@ -2,6 +2,7 @@ package de.adesso.pdd.taskmanagement.controller;
 
 import de.adesso.pdd.taskmanagement.dto.EmployeeDto;
 import de.adesso.pdd.taskmanagement.service.IEmployeesService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
